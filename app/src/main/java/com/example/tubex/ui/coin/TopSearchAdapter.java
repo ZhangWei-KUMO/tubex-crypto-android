@@ -1,24 +1,25 @@
-package com.example.tubex.ui.home;
+package com.example.tubex.ui.coin;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.tubex.R;
-import java.util.List;
+
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class TopSearchAdapter extends RecyclerView.Adapter<TopSearchAdapter.ViewHolder> {
 
     private List<TopSearchItem> data;
     private DecimalFormat decimalFormat = new DecimalFormat("#.##");
-    private OnItemClickListener onItemClickListener;
-
-    public TopSearchAdapter(List<TopSearchItem> topSearchItemList, OnItemClickListener onItemClickListener) {
-        this.data = topSearchItemList;
-        this.onItemClickListener = onItemClickListener;
+//    private onItemClickListener listener;
+    public TopSearchAdapter(List<TopSearchItem> data) {
+        this.data = data;
     }
 
     @NonNull
@@ -35,9 +36,7 @@ public class TopSearchAdapter extends RecyclerView.Adapter<TopSearchAdapter.View
         holder.rankTextView.setText(String.valueOf(item.getRank()));
         holder.ratioTextView.setText(decimalFormat.format(item.getRatio())); // 正确的 TextView
         holder.itemView.setOnClickListener(v -> {
-            if (onItemClickListener != null) {
-                onItemClickListener.onItemClick(item);  // 将点击的Item传出去
-            }
+
         });
     }
 
