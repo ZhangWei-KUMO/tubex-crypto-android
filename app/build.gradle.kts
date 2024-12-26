@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.tubex"
+    namespace = "chat.tubex.analysis"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.tubex"
+        applicationId = "chat.tubex.analysis"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
