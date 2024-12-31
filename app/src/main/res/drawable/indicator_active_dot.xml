@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/blue" />  <!-- 修改为蓝色 -->
+    <size android:width="5dp" android:height="5dp" /> <!--  调整长方形的宽度和高度 (可根据你的需要修改)-->
+</shape>

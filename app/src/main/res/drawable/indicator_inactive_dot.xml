@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/white" /> <!-- 你的未激活颜色 -->
+    <size android:width="5dp" android:height="5dp" />
+</shape>

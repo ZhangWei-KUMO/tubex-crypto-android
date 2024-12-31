@@ -8,6 +8,17 @@
     <color name="orange_700">#F0B90B</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background_dark">#181818</color>
+    <color name="modal_background">#252525</color>
+    <color name="button_background">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="modal_text">#BDBDBD</color>
+    <color name="terms_link_text">#5CA8EB</color>
+    <color name="essential_card_background">#322B58</color>
+    <color name="plus_card_background">#1D2C5B</color>
+    <color name="timeline_color">#CCCCCC</color>
+    <color name="blue">#6cb6ff</color>
+
+
 </resources>

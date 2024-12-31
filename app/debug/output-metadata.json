@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.tubex",
+  "applicationId": "chat.tubex.analysis",
   "variantName": "debug",
   "elements": [
     {

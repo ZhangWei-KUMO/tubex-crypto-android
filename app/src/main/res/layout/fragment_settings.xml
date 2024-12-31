@@ -26,6 +26,7 @@
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp">
                 <LinearLayout
+                    android:id="@+id/subscribeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -64,6 +65,7 @@
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp">
                 <LinearLayout
+                    android:id="@+id/shareLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -108,6 +110,7 @@
                 app:cardElevation="2dp">
 
                 <LinearLayout
+                    android:id="@+id/newsLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -148,34 +151,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/recommend_24px"
-                    android:contentDescription="评价图标"
-                    />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="给我们评分"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/helpCenterLayout"
                 android:layout_width="match_parent"

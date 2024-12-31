@@ -13,7 +13,9 @@ import chat.tubex.analysis.R;
 import chat.tubex.analysis.databinding.FragmentSettingsBinding;
 import chat.tubex.analysis.AboutUsActivity;
 import chat.tubex.analysis.HelpCenterActivity;
-
+import chat.tubex.analysis.ShareActivity;
+import chat.tubex.analysis.LoginActivity;
+import chat.tubex.analysis.SubscribeActivity;
 public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
@@ -50,6 +52,34 @@ public class SettingsFragment extends Fragment {
                 startActivity(intent);
             });
         }
+
+        // 获取推荐朋友的LinearLayout
+        LinearLayout shareLayout = binding.getRoot().findViewById(R.id.shareLayout);
+        if(shareLayout != null) {
+            shareLayout.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), ShareActivity.class);
+                startActivity(intent);
+            });
+        }
+
+        // 获取订阅的LinearLayout
+        LinearLayout subscribeLayout = binding.getRoot().findViewById(R.id.subscribeLayout);
+        if(subscribeLayout != null) {
+            subscribeLayout.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), SubscribeActivity.class);
+                startActivity(intent);
+            });
+        }
+
+        // 获取登录的LinearLayout
+//        LinearLayout loginLayout = binding.getRoot().findViewById(R.id.loginLayout);
+//        if(loginLayout != null) {
+//            loginLayout.setOnClickListener(v -> {
+//                Intent intent = new Intent(getContext(), LoginActivity.class);
+//                startActivity(intent);
+//            });
+//        }
+
     }
 
 

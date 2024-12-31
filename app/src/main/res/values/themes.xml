@@ -11,7 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">#FFFFFF</item>  <!-- 设置状态栏颜色为白色 -->
-        <!-- Customize your theme here. -->
-        <item name="android:windowLightStatusBar">true</item>  <!-- 设置状态栏图标为深色 -->
+        <!-- 设置状态栏图标为深色 -->
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
