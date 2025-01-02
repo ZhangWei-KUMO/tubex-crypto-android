@@ -16,6 +16,7 @@ import chat.tubex.analysis.HelpCenterActivity;
 import chat.tubex.analysis.ShareActivity;
 import chat.tubex.analysis.LoginActivity;
 import chat.tubex.analysis.SubscribeActivity;
+import chat.tubex.analysis.ResearchListActivity;
 public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
@@ -67,6 +68,15 @@ public class SettingsFragment extends Fragment {
         if(subscribeLayout != null) {
             subscribeLayout.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), SubscribeActivity.class);
+                startActivity(intent);
+            });
+        }
+
+        // 获取市场研报的LinearLayout
+        LinearLayout researchLayout = binding.getRoot().findViewById(R.id.researchLayout);
+        if(researchLayout != null) {
+            researchLayout.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), ResearchListActivity.class);
                 startActivity(intent);
             });
         }

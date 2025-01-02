@@ -44,6 +44,8 @@
         <activity android:name=".LoginActivity" android:exported="false"/>
         <activity android:name=".SubscribeActivity" android:exported="false"/>
         <activity android:name=".NewsActivity" android:exported="false"/>
+        <activity android:name=".ResearchListActivity" android:exported="false"/>
+
 
     </application>
 

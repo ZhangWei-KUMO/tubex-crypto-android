@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Biger</string>
+    <string name="app_name">币格</string>
     <string name="title_home">首页</string>
-    <string name="title_news">实时新闻</string>
+    <string name="title_news">市场消息</string>
     <string name="title_settings">设置</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="version">版本号：1.0.0</string>

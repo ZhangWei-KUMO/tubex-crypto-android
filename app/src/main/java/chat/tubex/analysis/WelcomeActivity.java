@@ -49,9 +49,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(WelcomeFragment.newInstance(R.drawable.first,"专业","专业的机器学习模型和统计数据分析"));
-        fragments.add(WelcomeFragment.newInstance(R.drawable.second,"及时","实时推送经济新闻"));
-        fragments.add(WelcomeFragment.newInstance(R.drawable.third,"专注","市场热门的才是你需要的"));
+        fragments.add(WelcomeFragment.newInstance(R.drawable.guider_1,"AI智能合约分析","专业的机器学习模型和统计数据分析"));
+        fragments.add(WelcomeFragment.newInstance(R.drawable.guider_2,"热门搜索实时监听","实时推送经济新闻"));
+        fragments.add(WelcomeFragment.newInstance(R.drawable.guider_3,"全球大事件尽在手中","市场热门的才是你需要的"));
         viewPager.setAdapter(new ViewPagerAdapter(this,fragments));
         createIndicators();
 

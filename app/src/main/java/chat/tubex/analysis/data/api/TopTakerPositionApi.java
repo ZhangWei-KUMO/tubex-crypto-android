@@ -9,6 +9,6 @@ import chat.tubex.analysis.model.TopTakerPosition;
 public interface TopTakerPositionApi {
     @GET("/futures/data/topLongShortPositionRatio")
     Call<List<TopTakerPosition>> getTopTakerPosition(@Query("symbol") String symbol,
-                                                                                  @Query("period") String period,
-                                                                                  @Query("limit") int limit);
+                                                     @Query("period") String period,
+                                                     @Query("limit") int limit);
 }

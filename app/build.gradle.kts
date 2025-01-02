@@ -53,4 +53,6 @@ dependencies {
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation ("org.apache.commons:commons-math3:3.6.1")
     implementation ("com.squareup.picasso:picasso:2.8")
+    implementation ("io.noties.markwon:core:4.6.2")
+    implementation ("io.noties.markwon:html:4.6.2")
 }

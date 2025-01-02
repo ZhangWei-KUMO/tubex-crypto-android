@@ -11,13 +11,14 @@
         android:layout_height="?attr/actionBarSize"
         android:gravity="center_vertical"
         android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/backButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
-            android:src="@drawable/arrow_back_24px"
             android:contentDescription="返回"
+            android:src="@drawable/arrow_back_24px"
             app:tint="#FFFFFF" />
 
         <TextView
@@ -40,79 +41,261 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <GridLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="1"
-                android:padding="16dp"
-                >
+                android:orientation="vertical">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:stretchColumns="1"
+                    >
+                    <TableRow
+                        android:layout_marginBottom="8dp">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="价格"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/currentPriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="今日基差"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/currentBasisTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+
+
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="交易量（百万/币）"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/currentVolumeTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="做市场多空比"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/takerPositionRatioTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="量价相关性系数"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/pearsonCorrelationTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="年化波动率"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/volatilityTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="最大回撤率"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/maxDrawdownTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="风险价值VaR (95% 置信水平/历史模拟法)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/historicalVar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="条件风险价值CVaR (95% 置信水平)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/CVar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+
+                </TableLayout>
                 <!-- 价格 图表 -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_margin="16dp"
                     app:cardBackgroundColor="#2B2B2B"
-                    app:cardCornerRadius="8dp"
-                    android:layout_rowWeight="1">
+                    app:cardCornerRadius="8dp">
+
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/priceLineChart"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </androidx.cardview.widget.CardView>
 
                 <!-- 交易量 图表 -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_margin="16dp"
                     app:cardBackgroundColor="#2B2B2B"
-                    app:cardCornerRadius="8dp"
-                    android:layout_rowWeight="1">
+                    app:cardCornerRadius="8dp">
 
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/volumeLineChart"
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/volumeBarChart"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </androidx.cardview.widget.CardView>
+
+                <!-- 基差图表 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:cardBackgroundColor="#2B2B2B"
+                    app:cardCornerRadius="8dp">
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/basisBarChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:visibility="gone" />
+                </androidx.cardview.widget.CardView>
+
                 <!-- 年化波动率 图表 -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_margin="16dp"
                     app:cardBackgroundColor="#2B2B2B"
-                    app:cardCornerRadius="8dp"
-                    android:layout_rowWeight="1">
+                    app:cardCornerRadius="8dp">
+
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/volatilityLineChart"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:visibility="gone"/>
-
+                        android:visibility="gone" />
                 </androidx.cardview.widget.CardView>
+
                 <!-- TakerPosition 图表 -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_margin="16dp"
                     app:cardBackgroundColor="#2B2B2B"
-                    app:cardCornerRadius="8dp"
-                    android:layout_rowWeight="1">
+                    app:cardCornerRadius="8dp">
+
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/takerPositionLineChart"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -124,31 +307,125 @@
                     android:textColor="#FFFFFF"
                     android:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/statisticsTextView"
+
+                <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:maxWidth="400dp"
-                    android:visibility="gone"/>
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:stretchColumns="1"
+                    >
+                    <TableRow
+                        android:layout_marginBottom="8dp">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="历史最高价"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/highPriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="历史最低价"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/lowPriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="中位数"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/medianPriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+
+
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="历史最大交易量"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/maxVolumeTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="历史最小交易量"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/minVolumeTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+                </TableLayout>
                 <!-- 交易量仓位比例信息 -->
+
                 <TextView
-                    android:id="@+id/takerPositionRatioTextView"
+                    android:id="@+id/basisTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"
                     android:gravity="center"
-                    android:maxWidth="400dp"
                     android:visibility="gone"/>
 
 
-            </GridLayout>
+            </LinearLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 </LinearLayout>

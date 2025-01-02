@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_width="80dp"
+            android:gravity="center"
             android:layout_marginEnd="4dp"
         />
 
@@ -30,12 +31,18 @@
             android:layout_weight="1"
             android:textSize="16sp"
             android:layout_marginEnd="4dp"
+            android:paddingLeft="62dp"
+            android:textStyle="bold"
         />
         <TextView
             android:id="@+id/ratioTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-        />
+            android:gravity="center"
+            android:textSize="12sp"
+            android:background="@drawable/rounded_corner_bg"
+            android:minWidth="50dp"
+            android:minHeight="30dp"
+            />
     </LinearLayout>
 </LinearLayout>

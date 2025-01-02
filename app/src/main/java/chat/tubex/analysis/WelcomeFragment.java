@@ -49,10 +49,8 @@ public class WelcomeFragment extends Fragment {
             String description = args.getString(ARG_DESCRIPTION);
             ImageView imageView = view.findViewById(R.id.imageView);
             TextView titleView = view.findViewById(R.id.titleView);
-            TextView descriptionView = view.findViewById(R.id.descriptionView);
             imageView.setImageResource(imageRes);
             titleView.setText(title);
-            descriptionView.setText(description);
 
 
         }

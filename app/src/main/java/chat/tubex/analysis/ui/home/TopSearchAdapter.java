@@ -41,16 +41,19 @@ public class TopSearchAdapter extends RecyclerView.Adapter<TopSearchAdapter.View
         // 解析波动率数值并根据正负设置颜色
         try {
             double ratio = item.getRatio();
+            int backgroundColor;
             if (ratio > 0) {
-                holder.ratioTextView.setTextColor(Color.GREEN); // 正数：绿色
-            } else if (ratio < 0) {
-                holder.ratioTextView.setTextColor(Color.RED); // 负数：红色
+                backgroundColor = Color.parseColor("#4CAF50"); // 好看的绿色，你可以根据需要修改
             } else {
-                holder.ratioTextView.setTextColor(Color.BLACK); //  0: 黑色或其他默认颜色
+                backgroundColor = Color.parseColor("#F44336"); // 好看的红色，你可以根据需要修改
             }
+            holder.ratioTextView.setBackgroundColor(backgroundColor);
+            holder.ratioTextView.setTextColor(Color.WHITE); // 设置字体颜色为白色
+
         } catch (NumberFormatException e) {
-            // 处理解析错误，例如日志记录或设置默认颜色
-            holder.ratioTextView.setTextColor(Color.BLACK); // 默认颜色
+            // 处理解析错误
+            holder.ratioTextView.setBackgroundColor(Color.GRAY); // 默认灰色
+            holder.ratioTextView.setTextColor(Color.WHITE); // 设置字体颜色为白色
         }
 
 

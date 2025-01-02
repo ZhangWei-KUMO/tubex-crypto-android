@@ -110,7 +110,7 @@
                 app:cardElevation="2dp">
 
                 <LinearLayout
-                    android:id="@+id/newsLayout"
+                    android:id="@+id/researchLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -127,14 +127,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="新闻"
+                        android:text="独家研报"
                         android:textSize="16sp"
                         android:textColor="#000000"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="随时了解市场动态"
+                        android:text="了解市场格局，洞察市场争相"
                         android:textSize="12sp"
                         android:textColor="#808080"/>
 
@@ -214,30 +214,30 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/output_circle_24px"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="退出图标"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="退出"
-                    android:textSize="16sp"
-                    android:textColor="#F44336"/>
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:paddingTop="16dp"-->
+<!--                android:paddingBottom="16dp"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:paddingEnd="16dp">-->
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/output_circle_24px"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:contentDescription="退出图标"-->
+<!--                    />-->
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="退出"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textColor="#F44336"/>-->
+<!--            </LinearLayout>-->
 
 
         </LinearLayout>
