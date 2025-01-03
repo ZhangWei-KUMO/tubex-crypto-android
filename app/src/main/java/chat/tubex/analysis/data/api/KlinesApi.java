@@ -1,7 +1,6 @@
 package chat.tubex.analysis.data.api;
 import okhttp3.ResponseBody;
 
-//import chat.tubex.analysis.model.KlinesResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

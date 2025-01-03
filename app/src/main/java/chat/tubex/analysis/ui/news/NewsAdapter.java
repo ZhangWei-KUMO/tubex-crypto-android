@@ -38,7 +38,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         NewsResponse.Item item = items.get(position);
         if (!TextUtils.isEmpty(item.getTitle())) {
-            holder.titleTextView.setText(item.getTitle());
+            String title = item.getTitle();
+            if (title.contains("华尔街见闻")) {
+                title = "币格私董会早报";
+            }
+            holder.titleTextView.setText(title);
             holder.titleTextView.setVisibility(View.VISIBLE); // 确保 titleTextView 是可见的
         } else {
             holder.titleTextView.setVisibility(View.GONE);    // 如果title为空，隐藏 titleTextView
@@ -47,7 +51,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         long timestampInSeconds = item.getDisplayTime();
         long timestampInMilliseconds = timestampInSeconds * 1000L; // 将秒转换为毫秒
         Date date = new Date(timestampInMilliseconds);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
         String formattedDate = sdf.format(date);
         holder.timeTextView.setText(formattedDate);
     }

@@ -30,7 +30,6 @@ public class CryptoFeatureActivity extends AppCompatActivity {
     private TextView currentPriceTextView;
     private TextView currentVolumeTextView;
     private TextView historicalVar;
-    private TextView CVar;
     private TextView volatilityTextView;
 
 
@@ -55,8 +54,7 @@ public class CryptoFeatureActivity extends AppCompatActivity {
         currentBasisTextView = findViewById(R.id.currentBasisTextView);
         currentPriceTextView = findViewById(R.id.currentPriceTextView);
         currentVolumeTextView = findViewById(R.id.currentVolumeTextView);
-        historicalVar = findViewById(R.id.historicalVar);
-        CVar = findViewById(R.id.CVar);
+        historicalVar = findViewById(R.id.extremeRiskTextView);
         volatilityTextView = findViewById(R.id.volatilityTextView);
 
         if (symbolTextView != null && currentSymbol != null) {
@@ -68,7 +66,7 @@ public class CryptoFeatureActivity extends AppCompatActivity {
                 highPriceTextView, lowPriceTextView, medianPriceTextView,
                 maxVolumeTextView, minVolumeTextView, pearsonCorrelationTextView,
                 currentBasisTextView, currentPriceTextView, currentVolumeTextView,
-                historicalVar,CVar,volatilityTextView);
+                historicalVar,volatilityTextView);
 
         chartManager = new ChartManager(this);
 

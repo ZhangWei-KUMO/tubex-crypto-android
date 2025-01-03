@@ -1,5 +1,5 @@
 package chat.tubex.analysis.data;
-
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -55,7 +55,6 @@ public class DataManager {
     private final TextView currentPriceTextView;
     private final TextView currentVolumeTextView;
     private final TextView historicalVar;
-    private final TextView CVar;
     private final TextView volatilityTextView;
 
 
@@ -63,7 +62,7 @@ public class DataManager {
                        TextView loadingTextView, TextView highPriceTextView, TextView lowPriceTextView,
                        TextView medianPriceTextView, TextView maxVolumeTextView, TextView minVolumeTextView,
                        TextView pearsonCorrelationTextView, TextView currentBasisTextView, TextView currentPriceTextView,
-                       TextView currentVolumeTextView, TextView historicalVar, TextView CVar, TextView volatilityTextView) {
+                       TextView currentVolumeTextView, TextView historicalVar, TextView volatilityTextView) {
         this.activity = activity;
         this.swipeRefreshLayout = swipeRefreshLayout;
         this.loadingTextView = loadingTextView;
@@ -77,7 +76,6 @@ public class DataManager {
         this.currentPriceTextView = currentPriceTextView;
         this.currentVolumeTextView = currentVolumeTextView;
         this.historicalVar = historicalVar;
-        this.CVar = CVar;
         this.volatilityTextView = volatilityTextView;
     }
 
@@ -148,6 +146,12 @@ public class DataManager {
             return;
         }
         double latestBasis = Double.parseDouble(basisItems.get(basisItems.size() - 1).getBasis());
+        // 将最新基差显示在TextView上，如果负数则显示红色
+        if (latestBasis < 0) {
+            currentBasisTextView.setTextColor(Color.RED);
+        } else {
+            currentBasisTextView.setTextColor(Color.WHITE);
+        }
         currentBasisTextView.setText(String.format("%.4f", latestBasis));
     }
 
@@ -339,7 +343,8 @@ public class DataManager {
                     double high = Double.parseDouble(item.get(2));
                     double low = Double.parseDouble(item.get(3));
                     double close = Double.parseDouble(item.get(4));
-                    double volume = Double.parseDouble(item.get(5))/1000000;
+                    // 成交额
+                    double volume = Double.parseDouble(item.get(7))/1000000;
                     maxPrice = Math.max(maxPrice, close);
                     minPrice = Math.min(minPrice, close);
                     priceList.add(close);
@@ -420,23 +425,48 @@ public class DataManager {
         double finalVar = var;
         double finalCvar = cvar;
         double finalVolatility = volatility;
+        // 数据绑定至UI
 
         activity.runOnUiThread(() -> {
-            highPriceTextView.setText(String.format("%.5f", finalMaxPrice));
-            lowPriceTextView.setText(String.format("%.5f", finalMinPrice));
-            medianPriceTextView.setText(String.format("%.5f", finalPriceMedian));
-            maxVolumeTextView.setText(String.format("%.2f", finalMaxVolume));
-            minVolumeTextView.setText(String.format("%.2f", finalMinVolume));
-            pearsonCorrelationTextView.setText(String.format("%.4f", finalCorrelation));
-            currentPriceTextView.setText(String.format("%.5f", finalLatestPrice));
-            currentVolumeTextView.setText(String.format("%.2f", finalLatestVolume));
+
+            // 设置最高高价
+            setColoredText(highPriceTextView, String.format("%.5f", finalMaxPrice), finalMaxPrice);
+
+            // 设置最低价
+            setColoredText(lowPriceTextView, String.format("%.5f", finalMinPrice), finalMinPrice);
+
+            // 设置中位数价格
+            setColoredText(medianPriceTextView, String.format("%.5f", finalPriceMedian), finalPriceMedian);
+
+            // 设置历史最大交易量
+            setColoredText(maxVolumeTextView, String.format("%.2f", finalMaxVolume*1000000), finalMaxVolume*1000000);
+
+            // 设置最小交易量
+            setColoredText(minVolumeTextView, String.format("%.2f", finalMinVolume*1000000), finalMinVolume*1000000);
+
+            // 设置皮尔逊相关系数
+            setColoredText(pearsonCorrelationTextView, String.format("%.4f", finalCorrelation), finalCorrelation);
+
+            // 设置当前价格
+            setColoredText(currentPriceTextView, String.format("%.5f", finalLatestPrice), finalLatestPrice);
+
+            // 设置当前交易量
+            setColoredText(currentVolumeTextView, String.format("%.2f", finalLatestVolume), finalLatestVolume);
+
+            // 设置最大回撤
             TextView maxDrawdownTextView = activity.findViewById(chat.tubex.analysis.R.id.maxDrawdownTextView);
-            double percentageDrawdown = finalMaxDrawdown * 100; //Convert to percentage
-            maxDrawdownTextView.setText(String.format("%.2f%%", percentageDrawdown)); // Format as percentage with 2 decimal places
-            historicalVar.setText(String.format("%.4f", finalVar));
-            CVar.setText(String.format("%.4f", finalCvar));
-            volatilityTextView.setText(String.format("%.4f", finalVolatility));
+            double percentageDrawdown = finalMaxDrawdown * 100;
+            setColoredText(maxDrawdownTextView, String.format("%.2f%%", percentageDrawdown), percentageDrawdown);
+
+            // 设置 VaR
+            setColoredText(historicalVar, String.format("%.4f", finalVar), finalVar);
+
+            // 设置波动率
+            setColoredText(volatilityTextView, String.format("%.4f", finalVolatility), finalVolatility);
         });
+
+
+
         return klineItems;
     }
     public void onDestroy() {
@@ -453,6 +483,15 @@ public class DataManager {
             basisCall.cancel();
         }
 
+    }
+
+    private void setColoredText(TextView textView, String formattedText, double value) {
+        textView.setText(formattedText);
+        if (value < 0) {
+            textView.setTextColor(Color.RED);
+        } else {
+            textView.setTextColor(Color.WHITE);
+        }
     }
 
 }

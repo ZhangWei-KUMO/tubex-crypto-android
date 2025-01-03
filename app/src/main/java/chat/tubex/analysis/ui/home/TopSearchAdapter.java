@@ -35,7 +35,7 @@ public class TopSearchAdapter extends RecyclerView.Adapter<TopSearchAdapter.View
         holder.symbolTextView.setText(item.getSymbol());
         holder.rankTextView.setText(String.valueOf(item.getRank()));
 
-        String formattedRatio = decimalFormat.format(item.getRatio());
+        String formattedRatio = decimalFormat.format(item.getRatio()*100)+"%";
         holder.ratioTextView.setText(formattedRatio);
 
         // 解析波动率数值并根据正负设置颜色
@@ -43,9 +43,9 @@ public class TopSearchAdapter extends RecyclerView.Adapter<TopSearchAdapter.View
             double ratio = item.getRatio();
             int backgroundColor;
             if (ratio > 0) {
-                backgroundColor = Color.parseColor("#4CAF50"); // 好看的绿色，你可以根据需要修改
+                backgroundColor = Color.parseColor("#4CAF50"); // 绿色，你可以根据需要修改
             } else {
-                backgroundColor = Color.parseColor("#F44336"); // 好看的红色，你可以根据需要修改
+                backgroundColor = Color.parseColor("#F44336"); // 红色，你可以根据需要修改
             }
             holder.ratioTextView.setBackgroundColor(backgroundColor);
             holder.ratioTextView.setTextColor(Color.WHITE); // 设置字体颜色为白色

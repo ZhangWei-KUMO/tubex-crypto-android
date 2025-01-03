@@ -49,6 +49,7 @@ public class ChartManager {
             }
 
             String ratioText = String.format("%.4f", latestLongShortRatio);
+            // 渲染做市商多空比数据
             activity.runOnUiThread(() -> {
                 TextView takerPositionRatioTextView = activity.findViewById(chat.tubex.analysis.R.id.takerPositionRatioTextView);
                 takerPositionRatioTextView.setText(ratioText);

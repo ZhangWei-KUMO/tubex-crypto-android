@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 import chat.tubex.analysis.CryptoFeatureActivity;
 import chat.tubex.analysis.databinding.FragmentHomeBinding;
+
 public class HomeFragment extends Fragment implements TopSearchAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private FragmentHomeBinding binding;
@@ -44,9 +46,6 @@ public class HomeFragment extends Fragment implements TopSearchAdapter.OnItemCli
         swipeRefreshLayout = binding.swipeRefreshLayout;
         swipeRefreshLayout.setOnRefreshListener(this);
         searchView = binding.searchView;
-        
-        // 点击任何地方都会展开
-        searchView.setIconifiedByDefault(false);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -61,34 +60,35 @@ public class HomeFragment extends Fragment implements TopSearchAdapter.OnItemCli
                 return true;
             }
         });
+        //设置SearchView的点击事件监听器
+//        searchView.setOnClickListener(v -> {
+//            searchView.setIconified(false);//强制展开searchview
+//        });
 
 
         observeData();
         return root;
     }
 
-    private void observeData(){
+    private void observeData() {
         homeViewModel.getTopSearchList().observe(getViewLifecycleOwner(), items -> {
             if (items != null) {
                 originalData.clear();
-                originalData.addAll(items); // 保存原始数据
+                originalData.addAll(items);
                 adapter.setData(items);
             }
         });
         homeViewModel.isRefreshing().observe(getViewLifecycleOwner(), isRefreshing -> {
             swipeRefreshLayout.setRefreshing(isRefreshing);
         });
-
     }
 
-
-    private void filterData(String query){
+    private void filterData(String query) {
         List<TopSearchItem> filterData = originalData.stream().filter(item -> {
             return item.getSymbol().toLowerCase().contains(query.toLowerCase());
         }).collect(Collectors.toList());
         adapter.setData(filterData);
     }
-
 
     @Override
     public void onItemClick(TopSearchItem item) {
@@ -120,5 +120,4 @@ public class HomeFragment extends Fragment implements TopSearchAdapter.OnItemCli
         super.onDestroyView();
         binding = null;
     }
-
 }

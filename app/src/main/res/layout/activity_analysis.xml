@@ -70,7 +70,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:textColor="#FFFFFF"
-                            android:textSize="14sp" />
+                            android:textSize="24sp" />
                     </TableRow>
                     <TableRow
                         android:layout_marginBottom="8dp">
@@ -97,7 +97,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="交易量（百万/币）"
+                            android:text="交易量（百万/USDT）"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
@@ -182,35 +182,18 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="风险价值VaR (95% 置信水平/历史模拟法)"
+                            android:text="单日极限风险"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
-
                         <TextView
-                            android:id="@+id/historicalVar"
+                            android:id="@+id/extremeRiskTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
                     </TableRow>
-                    <TableRow
-                        android:layout_marginBottom="8dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="条件风险价值CVaR (95% 置信水平)"
-                            android:textColor="#FFFFFF"
-                            android:textSize="14sp" />
 
-                        <TextView
-                            android:id="@+id/CVar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:textColor="#FFFFFF"
-                            android:textSize="14sp" />
-                    </TableRow>
 
                 </TableLayout>
                 <!-- 价格 图表 -->
@@ -360,7 +343,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="中位数"
+                            android:text="价格中位数"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
