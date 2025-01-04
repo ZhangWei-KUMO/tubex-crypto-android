@@ -5,63 +5,33 @@ import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import java.util.List;
-
+import java.util.Arrays;
 public class AlgorithmUtils {
-    // 计算风险价值
-    public static double calculateConditionalVaR(double[] returns, double confidenceLevel) {
+    // 计算极值理论
+    public static double calculateEVT(double[] returns) {
         if (returns == null || returns.length == 0) {
-            return Double.NaN; // Or handle the case as needed
+            throw new IllegalArgumentException("收益率数组不能为空");
         }
+
         int n = returns.length;
-        if (n < 2){
-            return Double.NaN;
-        }
-        java.util.Arrays.sort(returns);
-        int varIndex = (int) Math.floor(n * confidenceLevel);
-        if (varIndex >= n) {
-            varIndex = n-1;
-        }
-        double var = returns[varIndex];
-        double sumOfTailLosses = 0;
-        int count = 0;
+        // 1. 复制收益率数组并进行排序
+        double[] sortedReturns = Arrays.copyOf(returns, n);
+        Arrays.sort(sortedReturns);
 
-        for (int i = 0; i < n; i++) {
-            if (returns[i] <= var) {
-                sumOfTailLosses += returns[i];
-                count++;
-            }
+        // 2. 计算 1% 分位数位置
+        double percentile = 0.01;
+        int index = (int) Math.ceil(n * percentile);
 
+        // 如果计算出的索引是0，则索引设置为1，因为我们需要至少一个返回值
+        if (index == 0) {
+            index = 1;
         }
 
-        return count > 0 ? sumOfTailLosses / count : Double.NaN;
-    }
-
-    // 计算风险价值
-    public static double calculateHistoricalVaR(double[] returns, double confidenceLevel) {
-        System.out.println("置信区间"+confidenceLevel);
-        System.out.println(returns);
-        if (returns == null || returns.length < 2) {
-            return Double.NaN;
-        }
-
-        DescriptiveStatistics stats = new DescriptiveStatistics();
-        for (double returnVal : returns) {
-            stats.addValue(returnVal);
-        }
-
-        double mean = stats.getMean();
-        double stdDev = stats.getStandardDeviation();
-
-        //Handle cases where standard deviation is zero to avoid division by zero errors.
-        if (stdDev == 0) {
-            return 0; // Or another appropriate value like mean or Double.NaN
-        }
+        // 3. 获取 1% 分位数处的收益率值（从尾部开始取值,因为排序之后是从小到大）
+        double valueAtRisk = sortedReturns[n - index];
 
 
-        NormalDistribution normalDistribution = new NormalDistribution();
-        double zAlpha = normalDistribution.inverseCumulativeProbability(1 - confidenceLevel); //Note: 1-confidenceLevel because inverseCDF gives the probability less than x
-
-        return mean - stdDev * zAlpha;
+        return valueAtRisk * -1; // 返回VaR，由于是损失，所以取负值
     }
     // 计算年化波动率
     public static double calculateVolatility(List<Double> prices) {
@@ -118,19 +88,24 @@ public class AlgorithmUtils {
 
     // 计算预期回报率
     public static double[] calculateReturns(List<Double> prices) {
-        System.out.println(prices);
         if (prices == null || prices.size() < 2) {
-            return new double[0]; // Return an empty array if input is invalid
+            return new double[0]; // 如果价格列表为空或少于两个价格，无法计算收益率，返回空数组
         }
 
-        int size = prices.size();
-        double[] returns = new double[size - 1];
+        int numDays = prices.size() - 1;
+        double[] returns = new double[numDays];
 
-        for (int i = 1; i < size; i++) {
-            returns[i - 1] = (prices.get(i) - prices.get(i - 1)) / prices.get(i - 1);
+        for (int i = 0; i < numDays; i++) {
+            double currentPrice = prices.get(i + 1); // 当天价格
+            double previousPrice = prices.get(i);   // 前一天价格
+
+            if (previousPrice == 0) {
+                returns[i]=0; //如果前一天价格是0，避免除以0的错误，收益率设置为0
+            } else {
+                returns[i] = (currentPrice - previousPrice) / previousPrice; // 计算日收益率
+            }
         }
-        System.out.println("预期回报率");
-        System.out.println(returns);
+
         return returns;
     }
 }

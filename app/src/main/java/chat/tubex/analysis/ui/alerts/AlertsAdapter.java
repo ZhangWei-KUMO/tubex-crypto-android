@@ -17,10 +17,12 @@ import chat.tubex.analysis.model.AlertsResponse;
 public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.ViewHolder> {
 
     private List<AlertsResponse.Article> items;
+    private static final String TRANSLATION_FAILED = "翻译失败";
 
     public AlertsAdapter(List<AlertsResponse.Article> items) {
         this.items = items;
     }
+
 
     @NonNull
     @Override
@@ -35,11 +37,13 @@ public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.ViewHolder
         AlertsResponse.Article item = items.get(position);
         if (item != null) {
             if (!TextUtils.isEmpty(item.getTitle())) {
-                holder.titleTextView.setText(item.getTitle());
-                holder.titleTextView.setVisibility(View.VISIBLE); // 确保 titleTextView 是可见的
+                String rawTitle = item.getTitle();
+                holder.titleTextView.setText(rawTitle);
+                holder.titleTextView.setVisibility(View.VISIBLE);
             } else {
-                holder.titleTextView.setVisibility(View.GONE);    // 如果title为空，隐藏 titleTextView
+                holder.titleTextView.setVisibility(View.GONE);
             }
+
             long timestampInMilliseconds = item.getReleaseDate();
             Date date = new Date(timestampInMilliseconds);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
@@ -53,11 +57,13 @@ public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.ViewHolder
         return items == null ? 0 : items.size();
     }
 
-    // 修改这里，添加 setArticles 方法
+
     public void setArticles(List<AlertsResponse.Article> newItems) {
         this.items = newItems;
         notifyDataSetChanged();
     }
+
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;

@@ -406,11 +406,9 @@ public class DataManager {
         double maxDrawdown = AlgorithmUtils.calculateMaxDrawdown(priceList);
         // Calculate Volatility
         double volatility = AlgorithmUtils.calculateVolatility(priceList);
-
-        // Calculate VaR and CVaR
+        // 计算单日收益率
         double[] returns = AlgorithmUtils.calculateReturns(priceList);
-        double var = AlgorithmUtils.calculateHistoricalVaR(returns, 0.99);
-        double cvar = AlgorithmUtils.calculateConditionalVaR(returns, 0.99);
+        double var = AlgorithmUtils.calculateEVT(returns);
 
         // Update TextViews on UI thread
         double finalMaxPrice = maxPrice;
@@ -423,7 +421,6 @@ public class DataManager {
         double finalLatestVolume = latestVolume;
         double finalMaxDrawdown = maxDrawdown;
         double finalVar = var;
-        double finalCvar = cvar;
         double finalVolatility = volatility;
         // 数据绑定至UI
 
@@ -459,10 +456,14 @@ public class DataManager {
             setColoredText(maxDrawdownTextView, String.format("%.2f%%", percentageDrawdown), percentageDrawdown);
 
             // 设置 VaR
-            setColoredText(historicalVar, String.format("%.4f", finalVar), finalVar);
+            double percentageFinalVar = finalVar * 100;
+            TextView finalTextView = activity.findViewById(chat.tubex.analysis.R.id.extremeRiskTextView);
+            setColoredText(finalTextView, String.format("%.2f%%", percentageFinalVar), percentageFinalVar);
 
             // 设置波动率
-            setColoredText(volatilityTextView, String.format("%.4f", finalVolatility), finalVolatility);
+            TextView volatilityTextView = activity.findViewById(chat.tubex.analysis.R.id.volatilityTextView);
+            double percentageVolatility = finalVolatility * 100;
+            setColoredText(volatilityTextView, String.format("%.2f%%", percentageVolatility), percentageVolatility);
         });
 
 
