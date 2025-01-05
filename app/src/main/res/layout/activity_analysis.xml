@@ -165,6 +165,23 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="币安合约手续费(8小时内)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/fundingRateTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_marginBottom="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="最大回撤率"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
@@ -256,7 +273,7 @@
                     app:cardCornerRadius="8dp">
 
                     <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/volatilityLineChart"
+                        android:id="@+id/fundingRateChart"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginTop="16dp"

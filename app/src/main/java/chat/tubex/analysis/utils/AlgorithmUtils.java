@@ -2,8 +2,9 @@ package chat.tubex.analysis.utils;
 
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.apache.commons.math3.distribution.NormalDistribution;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import java.util.List;
 import java.util.Arrays;
 public class AlgorithmUtils {
@@ -35,20 +36,36 @@ public class AlgorithmUtils {
     }
     // 计算年化波动率
     public static double calculateVolatility(List<Double> prices) {
+        System.out.println(prices);
         if (prices == null || prices.size() < 2) {
             return 0.0;
         }
-        int n = prices.size();
-        double[] dailyReturns = new double[n - 1];
 
-        for(int i= 1; i< n; i++){
-            dailyReturns[i-1] = (prices.get(i) - prices.get(i-1))/prices.get(i-1);
+        int n = prices.size();
+        BigDecimal[] dailyReturns = new BigDecimal[n - 1];
+
+        // 正确计算日收益率，并四舍五入
+        for (int i = 1; i < n; i++) {
+            BigDecimal priceCurrent = BigDecimal.valueOf(prices.get(i));
+            BigDecimal pricePrevious = BigDecimal.valueOf(prices.get(i - 1));
+            dailyReturns[i - 1] = priceCurrent.subtract(pricePrevious)
+                    .divide(pricePrevious, 10, RoundingMode.HALF_UP)
+                    .setScale(4, RoundingMode.HALF_UP); // 修正公式并保留4位小数
+        }
+
+        // 计算每日波动率 (需要将BigDecimal[]转换为double[])
+        double[] dailyReturnsDouble = new double[n-1];
+        for(int i = 0; i < dailyReturns.length; i++){
+            dailyReturnsDouble[i] = dailyReturns[i].doubleValue();
         }
 
         StandardDeviation standardDeviation = new StandardDeviation();
-        double stdDev =  standardDeviation.evaluate(dailyReturns);
-        return stdDev * Math.sqrt(365);
+        double dailyVolatility = standardDeviation.evaluate(dailyReturnsDouble);
 
+        // 计算年化波动率 (假设一年有252个交易日)
+        double annualizedVolatility = dailyVolatility * Math.sqrt(252);
+
+        return annualizedVolatility;
     }
 
     // 计算最大回撤

@@ -30,11 +30,9 @@ public class HomeViewModel extends ViewModel {
     public LiveData<List<TopSearchItem>> getTopSearchList() {
         return topSearchList;
     }
-
     public LiveData<Boolean> isRefreshing() {
         return isRefreshing;
     }
-
     public void fetchData(DataFetchCallback callback) {
         isRefreshing.setValue(true);
         OkHttpClient client = new OkHttpClient.Builder().build();
@@ -69,8 +67,6 @@ public class HomeViewModel extends ViewModel {
                     if (callback != null) {
                         callback.onFailure("请求出错：" + response.message());
                     }
-                    System.out.println("请求出错：：");
-                    System.out.println(response.message());
                 }
             }
 
@@ -81,7 +77,6 @@ public class HomeViewModel extends ViewModel {
                 if (callback != null) {
                     callback.onFailure("请求失败：" + t.getMessage());
                 }
-                System.out.println("请求失败");
                 t.printStackTrace();
             }
         });

@@ -13,13 +13,13 @@ import chat.tubex.analysis.utils.SystemBarUtils;
 public class CryptoFeatureActivity extends AppCompatActivity {
     private String currentSymbol;
     private DataManager dataManager;
+    // 主图管理
     private ChartManager chartManager;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView loadingTextView;
     private TextView takerPositionRatioTextView;
     private TextView basisTextView;
 
-    // New TextViews for statistics
     private TextView highPriceTextView;
     private TextView lowPriceTextView;
     private TextView medianPriceTextView;
@@ -31,13 +31,13 @@ public class CryptoFeatureActivity extends AppCompatActivity {
     private TextView currentVolumeTextView;
     private TextView historicalVar;
     private TextView volatilityTextView;
+    private TextView fundingRateTextView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analysis);
-
         currentSymbol = getIntent().getStringExtra("symbol");
         TextView symbolTextView = findViewById(R.id.symbolTextView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
@@ -56,6 +56,7 @@ public class CryptoFeatureActivity extends AppCompatActivity {
         currentVolumeTextView = findViewById(R.id.currentVolumeTextView);
         historicalVar = findViewById(R.id.extremeRiskTextView);
         volatilityTextView = findViewById(R.id.volatilityTextView);
+        fundingRateTextView = findViewById(R.id.fundingRateTextView);
 
         if (symbolTextView != null && currentSymbol != null) {
             symbolTextView.setText(currentSymbol + "合约分析");
@@ -66,28 +67,29 @@ public class CryptoFeatureActivity extends AppCompatActivity {
                 highPriceTextView, lowPriceTextView, medianPriceTextView,
                 maxVolumeTextView, minVolumeTextView, pearsonCorrelationTextView,
                 currentBasisTextView, currentPriceTextView, currentVolumeTextView,
-                historicalVar,volatilityTextView);
+                historicalVar,volatilityTextView,fundingRateTextView);
 
         chartManager = new ChartManager(this);
-
         // Set DataManager's ChartManager instance
         dataManager.setChartManager(chartManager);
-
         // Fetch initial data
         if (currentSymbol != null) {
             fetchData();
         }
         ImageView backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> finish());
-
         swipeRefreshLayout.setOnRefreshListener(this::fetchData);
-
         SystemBarUtils.setSystemBarsColor(this);
     }
     private void fetchData(){
+        // 获取K线数据
         dataManager.fetchKlines(currentSymbol);
+        // 获取做市商数据
         dataManager.fetchTopTakerPosition(currentSymbol);
+        // 获取基差数据
         dataManager.fetchBasis(currentSymbol);
+        // 获取手续费数据
+        dataManager.fetchFundingRate(currentSymbol);
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import chat.tubex.analysis.CryptoFeatureActivity;
 import chat.tubex.analysis.model.Basis;
+import chat.tubex.analysis.model.FundingRateResponse;
 import chat.tubex.analysis.model.KlineItem;
 import chat.tubex.analysis.model.TopTakerPosition;
 import com.github.mikephil.charting.charts.BarChart;
@@ -22,7 +23,7 @@ import java.util.Locale;
 public class ChartManager {
     private final CryptoFeatureActivity activity;
     private final LineChart priceLineChart;
-    private final LineChart volatilityLineChart;
+    private final LineChart fundingRateChart;
     private final BarChart volumeLineChart;
     private final LineChart takerPositionLineChart;
     private final BarChart basisBarChart;
@@ -30,11 +31,12 @@ public class ChartManager {
     public ChartManager(CryptoFeatureActivity activity) {
         this.activity = activity;
         this.priceLineChart = activity.findViewById(chat.tubex.analysis.R.id.priceLineChart);
-        this.volatilityLineChart = activity.findViewById(chat.tubex.analysis.R.id.volatilityLineChart);
+        this.fundingRateChart = activity.findViewById(chat.tubex.analysis.R.id.fundingRateChart);
         this.volumeLineChart = activity.findViewById(chat.tubex.analysis.R.id.volumeBarChart);
         this.takerPositionLineChart = activity.findViewById(chat.tubex.analysis.R.id.takerPositionLineChart);
         this.basisBarChart = activity.findViewById(chat.tubex.analysis.R.id.basisBarChart);
     }
+    // 设置做市商的Chat数据
 
     public void setTakerPositionChartData(List<TopTakerPosition> takerPositionItems) {
         List<Entry> takerPositionEntries = new ArrayList<>();
@@ -83,6 +85,37 @@ public class ChartManager {
         takerPositionLineChart.getDescription().setEnabled(false);
         takerPositionLineChart.invalidate();
     }
+
+    // 设置合约交易费
+    public void setFundingRateChartData(List<FundingRateResponse> fundingRateItems) {
+        List<Entry> fundingRateEntries = new ArrayList<>();
+
+        if (fundingRateItems != null && !fundingRateItems.isEmpty()) {
+            for (int i = 0; i < fundingRateItems.size(); i++) {
+                FundingRateResponse item = fundingRateItems.get(i);
+                float timestamp = (float) item.getTimestamp();
+                float fundingRate = Float.parseFloat(item.getFundingRate());
+                fundingRateEntries.add(new Entry(timestamp, fundingRate));
+            }
+        }
+        LineDataSet fundingRateDataSet = new LineDataSet(fundingRateEntries, "合约交易费");
+        fundingRateDataSet.setColor(Color.RED);
+        fundingRateDataSet.setLineWidth(2f);
+        fundingRateDataSet.setDrawCircles(false);
+        fundingRateDataSet.setDrawValues(false);
+        LineData fundingRateData = new LineData(fundingRateDataSet);
+        fundingRateChart.setData(fundingRateData);
+        fundingRateChart.getAxisRight().setEnabled(false);
+        ChartUtils.setChartTextColor(fundingRateChart);
+        XAxis fundingRateXAxis = fundingRateChart.getXAxis();
+        fundingRateXAxis.setValueFormatter(new TimeAxisValueFormatter());
+        fundingRateXAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        fundingRateXAxis.setGranularity(1f);
+        fundingRateXAxis.setLabelCount(5, true);
+        fundingRateXAxis.setAvoidFirstLastClipping(true);
+
+    }
+
     public void setBasisChartData(List<Basis> basisItems) {
         List<BarEntry> basisEntries = new ArrayList<>();
 
@@ -122,7 +155,7 @@ public class ChartManager {
 
     public void setLineChartData(List<KlineItem> klineItems) {
         List<Entry> priceEntries = new ArrayList<>();
-        List<Entry> volatilityEntries = new ArrayList<>();
+        List<Entry> FundRate = new ArrayList<>();
         List<BarEntry> volumeEntries = new ArrayList<>();
 
 
@@ -130,11 +163,11 @@ public class ChartManager {
             KlineItem klineItem = klineItems.get(i);
             float timestamp = (float) klineItem.getTimestamp();
             float price = (float) klineItem.getClose();
-            float volatility = klineItem.getVolatility();
+            float fundingrates = klineItem.getVolatility();
             float volume = klineItem.getVolume();
 
             priceEntries.add(new Entry(timestamp, price));
-            volatilityEntries.add(new Entry(timestamp, volatility));
+            FundRate.add(new Entry(timestamp, fundingrates));
             volumeEntries.add(new BarEntry(i, volume));
         }
 
@@ -168,36 +201,6 @@ public class ChartManager {
         priceLineChart.getDescription().setEnabled(false);
         priceLineChart.invalidate();
 
-
-        // 设置波动率图表数据
-        LineDataSet volatilityDataSet = new LineDataSet(volatilityEntries, "年化波动率");
-        volatilityDataSet.setColor(Color.RED);
-        volatilityDataSet.setLineWidth(2f);
-        volatilityDataSet.setDrawValues(false);
-        volatilityDataSet.setDrawCircles(false);
-
-        LineData volatilityLineData = new LineData(volatilityDataSet);
-        volatilityLineChart.setData(volatilityLineData);
-        volatilityLineChart.getAxisRight().setEnabled(false);
-        volatilityLineChart.getXAxis().setTextColor(Color.WHITE);
-        volatilityLineChart.getAxisLeft().setTextColor(Color.WHITE);
-        volatilityLineChart.getLegend().setTextColor(Color.WHITE);
-        volatilityLineChart.getDescription().setTextColor(Color.WHITE);
-        volatilityLineChart.setNoDataTextColor(Color.WHITE);
-        ChartUtils.setChartTextColor(volatilityLineChart);
-        XAxis volatilityXAxis = volatilityLineChart.getXAxis();
-        volatilityXAxis.setValueFormatter(new TimeAxisValueFormatter());
-        volatilityXAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        volatilityXAxis.setGranularity(1f);
-        volatilityXAxis.setLabelCount(5, true);
-        volatilityXAxis.setAvoidFirstLastClipping(true);
-
-        volatilityLineChart.setDragEnabled(true);
-        volatilityLineChart.setScaleEnabled(true);
-        volatilityLineChart.setTouchEnabled(true);
-        volatilityLineChart.getDescription().setEnabled(false);
-        volatilityLineChart.invalidate();
-
         // 设置交易量图表数据
         BarDataSet volumeDataSet = new BarDataSet(volumeEntries, "加密货币交易量 (百万)");
         volumeDataSet.setColor(Color.GREEN);
@@ -225,7 +228,7 @@ public class ChartManager {
     public void resetViewVisibility() {
         basisBarChart.setVisibility(View.GONE);
         priceLineChart.setVisibility(View.GONE);
-        volatilityLineChart.setVisibility(View.GONE);
+        fundingRateChart.setVisibility(View.GONE);
         volumeLineChart.setVisibility(View.GONE);
         TextView takerPositionRatioTextView = activity.findViewById(chat.tubex.analysis.R.id.takerPositionRatioTextView);
         takerPositionRatioTextView.setVisibility(View.GONE);
@@ -238,7 +241,7 @@ public class ChartManager {
     public void setViewVisibility() {
         basisBarChart.setVisibility(View.VISIBLE);
         priceLineChart.setVisibility(View.VISIBLE);
-        volatilityLineChart.setVisibility(View.VISIBLE);
+        fundingRateChart.setVisibility(View.VISIBLE);
         volumeLineChart.setVisibility(View.VISIBLE);
         TextView takerPositionRatioTextView = activity.findViewById(chat.tubex.analysis.R.id.takerPositionRatioTextView);
         takerPositionRatioTextView.setVisibility(View.VISIBLE);

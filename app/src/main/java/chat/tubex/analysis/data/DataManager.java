@@ -8,14 +8,19 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
+import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
+
 import chat.tubex.analysis.CryptoFeatureActivity;
 import chat.tubex.analysis.chart.ChartManager;
 import chat.tubex.analysis.data.api.BasisApi;
+import chat.tubex.analysis.data.api.FundingRateApi;
 import chat.tubex.analysis.data.api.KlinesApi;
 import chat.tubex.analysis.data.api.TopTakerPositionApi;
 import chat.tubex.analysis.model.Basis;
 import chat.tubex.analysis.model.KlineItem;
 import chat.tubex.analysis.model.TopTakerPosition;
+import chat.tubex.analysis.model.FundingRateResponse;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -41,6 +46,7 @@ public class DataManager {
     private final SwipeRefreshLayout swipeRefreshLayout;
     private final TextView loadingTextView;
     private Call<ResponseBody> currentCall;
+    private Call<List<FundingRateResponse>> fundingRateCall;
     private Call<List<TopTakerPosition>> takerPositionCall;
     private Call<List<Basis>> basisCall;
     private ChartManager chartManager;
@@ -56,13 +62,14 @@ public class DataManager {
     private final TextView currentVolumeTextView;
     private final TextView historicalVar;
     private final TextView volatilityTextView;
+    private final TextView fundingRateTextView;
 
 
     public DataManager(CryptoFeatureActivity activity, SwipeRefreshLayout swipeRefreshLayout,
                        TextView loadingTextView, TextView highPriceTextView, TextView lowPriceTextView,
                        TextView medianPriceTextView, TextView maxVolumeTextView, TextView minVolumeTextView,
                        TextView pearsonCorrelationTextView, TextView currentBasisTextView, TextView currentPriceTextView,
-                       TextView currentVolumeTextView, TextView historicalVar, TextView volatilityTextView) {
+                       TextView currentVolumeTextView, TextView historicalVar, TextView volatilityTextView, TextView fundingRateTextView) {
         this.activity = activity;
         this.swipeRefreshLayout = swipeRefreshLayout;
         this.loadingTextView = loadingTextView;
@@ -77,6 +84,7 @@ public class DataManager {
         this.currentVolumeTextView = currentVolumeTextView;
         this.historicalVar = historicalVar;
         this.volatilityTextView = volatilityTextView;
+        this.fundingRateTextView = fundingRateTextView;
     }
 
     public void setChartManager(ChartManager chartManager) {
@@ -210,6 +218,76 @@ public class DataManager {
             }
         });
     }
+
+    public void fetchFundingRate(String symbol) {
+        OkHttpClient client = new OkHttpClient.Builder().build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        FundingRateApi api = retrofit.create(FundingRateApi.class);
+        fundingRateCall = api.getFundingRate(symbol);
+        fundingRateCall.enqueue(new Callback<List<FundingRateResponse>>() {
+            @Override
+            public void onResponse(Call<List<FundingRateResponse>> call, Response<List<FundingRateResponse>> response) {
+                if (response.isSuccessful()) {
+                    executorService.execute(() -> {
+                        try {
+                            List<FundingRateResponse> responseBody = response.body(); // 修改这里
+                            if (responseBody != null && !responseBody.isEmpty()) {
+                                // 这里使用第一个数据, 可以根据symbol进行判断使用哪个数据
+                                FundingRateResponse firstResponse = responseBody.get(0);
+                                String fundingRate = firstResponse.getFundingRate();
+                                // 转换成浮点值并转换成百分比
+                                double fundingRateValue = Double.parseDouble(fundingRate) * 100;
+                                String formattedFundingRate = String.format("%.2f%%", fundingRateValue);
+                                activity.runOnUiThread(() -> {
+                                    // 显示当前合约手续费
+                                    fundingRateTextView.setText(formattedFundingRate);
+                                    chartManager.setFundingRateChartData(responseBody);
+                                });
+
+
+                            } else {
+                                activity.runOnUiThread(() -> {
+                                    Log.d(TAG, "合约手续费 is null or empty");
+                                    Toast.makeText(activity, "合约手续费 is null or empty", Toast.LENGTH_SHORT).show();
+                                });
+                            }
+                        } catch (JsonSyntaxException e) {
+                            activity.runOnUiThread(() -> {
+                                Log.e(TAG, "Failed to parse JSON: " + e.getMessage());
+                                loadingTextView.setText("Failed to parse JSON");
+                                Toast.makeText(activity, "Failed to parse JSON: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                        } catch (Exception e) {
+                            activity.runOnUiThread(() -> {
+                                Log.e(TAG, "IOException: " + e.getMessage());
+                                loadingTextView.setText("IOException");
+                                Toast.makeText(activity, "IOException: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                        } finally {
+                            activity.runOnUiThread(() -> swipeRefreshLayout.setRefreshing(false));
+                        }
+                    });
+                } else {
+                    Log.e(TAG, "Failed to fetch funding rate: " + response.message());
+                    Toast.makeText(activity, "Failed to fetch funding rate: " + response.message(), Toast.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FundingRateResponse>> call, Throwable t) { // 修改这里
+                Log.e(TAG, "Failed to fetch funding rate: " + t.getMessage());
+                Toast.makeText(activity, "Failed to fetch funding rate: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
     public void fetchKlines(String symbol) {
         // Clear existing data
         chartManager.resetViewVisibility();
@@ -355,12 +433,19 @@ public class DataManager {
                     latestVolume = volume;
 
                     double volatility = 0;
-                    if (i > 0) {
-                        double prevClosePrice = closePrices[i - 1];
-                        double dailyReturn = (close - prevClosePrice) / prevClosePrice;
-                        double dailyVolatility = Math.sqrt(dailyReturn * dailyReturn);
-                        volatility = dailyVolatility * Math.sqrt(365);
+                    int m = closePrices.length; // 假设 n 是 closePrices 的长度
+                    double[] dailyReturns = new double[m - 1];
+
+                    for (int j = 1; j < closePrices.length; j++) {
+                        double prevClosePrice = closePrices[j - 1];
+                        double closeP = closePrices[j];
+                        double dailyReturn = (closeP - prevClosePrice) / prevClosePrice;
+                        dailyReturns[j - 1] = dailyReturn; // 使用索引赋值
                     }
+
+                    StandardDeviation standardDeviation = new StandardDeviation();
+                    double dailyVolatility = standardDeviation.evaluate(dailyReturns);
+                    volatility = dailyVolatility * Math.sqrt(365) * 100;
 
                     klineItems.add(new KlineItem(timestamp, open, high, low, close, (float) volume, (float) volatility));
                 } catch (NumberFormatException e) {
@@ -404,8 +489,9 @@ public class DataManager {
 
         // Calculate Max Drawdown
         double maxDrawdown = AlgorithmUtils.calculateMaxDrawdown(priceList);
-        // Calculate Volatility
-        double volatility = AlgorithmUtils.calculateVolatility(priceList);
+        // 从Klines数组中取最后一个元素，取其中的volatility
+        double volatility = klineItems.get(klineItems.size()-1).getVolatility();
+
         // 计算单日收益率
         double[] returns = AlgorithmUtils.calculateReturns(priceList);
         double var = AlgorithmUtils.calculateEVT(returns);
@@ -462,7 +548,7 @@ public class DataManager {
 
             // 设置波动率
             TextView volatilityTextView = activity.findViewById(chat.tubex.analysis.R.id.volatilityTextView);
-            double percentageVolatility = finalVolatility * 100;
+            double percentageVolatility = finalVolatility;
             setColoredText(volatilityTextView, String.format("%.2f%%", percentageVolatility), percentageVolatility);
         });
 
