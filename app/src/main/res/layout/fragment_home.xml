@@ -22,6 +22,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:queryHint="搜索合约"
+            android:contentDescription="搜索合约"
             android:iconifiedByDefault="false"
             />
         <LinearLayout
@@ -37,12 +38,17 @@
             <TextView
                 android:layout_height="wrap_content"
                 android:text="搜索排名"
-                android:layout_width="80dp"
+                android:contentDescription="搜索排名"
+                android:layout_width="wrap_content"
+                android:minWidth="80dp"
                 android:textSize="14sp"
                 android:textColor="@android:color/darker_gray"
                 android:layout_marginEnd="4dp"
                 android:textStyle="bold"
                 android:gravity="center"
+                android:maxLines="1"
+                android:minTextSize="10sp"
+                android:autoSizeTextType="uniform"
                 tools:ignore="NestedWeights" />
 
             <TextView
@@ -75,6 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:contentDescription="合约列表"
             />
         <TextView
             android:id="@+id/emptyTextView"

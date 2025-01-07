@@ -20,6 +20,7 @@
             android:id="@+id/newsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="news"
             />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -29,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="加载中..."
+        android:contentDescription="新闻列表加载中"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
