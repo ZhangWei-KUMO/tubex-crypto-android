@@ -8,16 +8,16 @@
         <!-- 设置状态栏图标为深色-->
         <item name="android:windowBackground">@android:color/white</item>
     </style>
-    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <item name="android:searchViewStyle">@style/MySearchViewStyle</item>
-        <item name="android:searchHintIcon">@null</item>
-        <item name="android:textColorHint">#808080</item>
-        <!-- 去除底部分隔线 -->
-        <item name="android:background">@drawable/search_background</item>
-        <!-- 确保没有展开的边距 -->
-        <item name="android:layout_marginBottom">0dp</item>
-    </style>
 
+<!--    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">-->
+<!--        <item name="android:searchViewStyle">@style/MySearchViewStyle</item>-->
+<!--        <item name="android:searchHintIcon">@null</item>-->
+<!--        <item name="android:textColorHint">#808080</item>-->
+<!--        &lt;!&ndash; 去除底部分隔线 &ndash;&gt;-->
+<!--        <item name="android:background">@drawable/search_background</item>-->
+<!--        &lt;!&ndash; 确保没有展开的边距 &ndash;&gt;-->
+<!--        <item name="android:layout_marginBottom">0dp</item>-->
+<!--    </style>-->
 
 
 </resources>

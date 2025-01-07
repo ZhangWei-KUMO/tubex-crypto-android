@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
     >
 
     <LinearLayout
@@ -18,80 +17,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="8dp">
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
-                <LinearLayout
-                    android:id="@+id/subscribeLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:contentDescription="订阅图标"
-                        android:src="@drawable/new_releases_24px"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="订阅"
-                        android:textSize="16sp"
-                        android:textColor="#000000"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="充分发挥暗度的强大功能"
-                        android:textSize="12sp"
-                        android:textColor="#808080"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
-                <LinearLayout
-                    android:id="@+id/shareLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:contentDescription="推荐朋友图标"
-                        android:src="@drawable/ios_share_24px"
-
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="推荐朋友"
-                        android:textColor="#000000"
-                        android:textSize="16sp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="分享您的喜爱"
-                        android:textColor="#808080"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
         <!-- 表头  第二行-->
@@ -101,46 +26,46 @@
             android:orientation="horizontal"
             android:padding="8dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="8dp"-->
+<!--                app:cardCornerRadius="8dp"-->
+<!--                app:cardElevation="2dp">-->
 
-                <LinearLayout
-                    android:id="@+id/researchLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/researchLayout"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="vertical">-->
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:contentDescription="新闻图标"
-                        android:src="@drawable/web_24px"
-                        />
+<!--                    <ImageView-->
+<!--                        android:layout_width="32dp"-->
+<!--                        android:layout_height="32dp"-->
+<!--                        android:contentDescription="新闻图标"-->
+<!--                        android:src="@drawable/web_24px"-->
+<!--                        />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="独家研报"
-                        android:textSize="16sp"
-                        android:textColor="#000000"/>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="独家研报"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:textColor="?android:textColorPrimary"/> &lt;!&ndash; 修改为 textColorPrimary &ndash;&gt;-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="了解市场格局，洞察市场争相"
-                        android:textSize="12sp"
-                        android:textColor="#808080"/>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="了解市场格局，洞察市场争相"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="?android:textColorSecondary"/> &lt;!&ndash; 修改为 textColorSecondary &ndash;&gt;-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
         </LinearLayout>
 
 
@@ -161,27 +86,16 @@
                 android:paddingBottom="16dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/rate_review_24px"
-                    android:contentDescription="帮助中心图标"
-                    />
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="帮助中心"
                     android:textSize="16sp"
-                    android:textColor="#000000"/>
-
+                    android:textColor="?android:textColorPrimary"/> <!-- 修改为 textColorPrimary -->
             </LinearLayout>
-
             <LinearLayout
-                android:id="@+id/aboutLayout"
+                android:id="@+id/runTimeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -191,54 +105,50 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="关于图标"
-                    android:src="@drawable/rate_review_24px"
-                    />
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="关于"
+                    android:text="运行环境"
                     android:textSize="16sp"
-                    android:textColor="#000000"/>
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:contentDescription="箭头图标"
-                    />
-
+                    android:textColor="?android:textColorPrimary"/> <!-- 修改为 textColorPrimary -->
             </LinearLayout>
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:gravity="center_vertical"-->
-<!--                android:paddingTop="16dp"-->
-<!--                android:paddingBottom="16dp"-->
-<!--                android:paddingStart="16dp"-->
-<!--                android:paddingEnd="16dp">-->
-<!--                <ImageView-->
-<!--                    android:layout_width="24dp"-->
-<!--                    android:layout_height="24dp"-->
-<!--                    android:src="@drawable/output_circle_24px"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    android:contentDescription="退出图标"-->
-<!--                    />-->
-<!--                <TextView-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="退出"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="#F44336"/>-->
-<!--            </LinearLayout>-->
-
+            <LinearLayout
+                android:id="@+id/privacyPoliceLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="隐私政策"
+                    android:textSize="16sp"
+                    android:textColor="?android:textColorPrimary"/> <!-- 修改为 textColorPrimary -->
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/termsOfUseLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="使用条款"
+                    android:textSize="16sp"
+                    android:textColor="?android:textColorPrimary"/> <!-- 修改为 textColorPrimary -->
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,7 @@ public class HomeFragment extends Fragment implements TopSearchAdapter.OnItemCli
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView searchView;
     private List<TopSearchItem> originalData = new ArrayList<>(); // 保存原始数据
+    private TextView emptyTextView;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +48,22 @@ public class HomeFragment extends Fragment implements TopSearchAdapter.OnItemCli
 
         swipeRefreshLayout = binding.swipeRefreshLayout;
         swipeRefreshLayout.setOnRefreshListener(this);
+
         searchView = binding.searchView;
+        searchView.setContentDescription("搜索合约"); // 设置 SearchView 的 contentDescription
+
+        // 获取搜索图标 ImageView 并设置 contentDescription
+        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_button);
+        if (searchIcon != null) {
+            searchIcon.setContentDescription("搜索");
+        }
+        // 获取清除图标 ImageView 并设置 contentDescription
+        ImageView clearIcon = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
+        if (clearIcon != null) {
+            clearIcon.setContentDescription("清除搜索内容");
+        }
+
+        emptyTextView = binding.emptyTextView;
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -87,6 +105,14 @@ public class HomeFragment extends Fragment implements TopSearchAdapter.OnItemCli
         List<TopSearchItem> filterData = originalData.stream().filter(item -> {
             return item.getSymbol().toLowerCase().contains(query.toLowerCase());
         }).collect(Collectors.toList());
+
+        if (filterData.isEmpty()) {
+            emptyTextView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            emptyTextView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
         adapter.setData(filterData);
     }
 

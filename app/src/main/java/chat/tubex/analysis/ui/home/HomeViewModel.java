@@ -43,6 +43,7 @@ public class HomeViewModel extends ViewModel {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         BinanceApi api = retrofit.create(BinanceApi.class);
+        // 这里出现过崩溃
         Call<BinanceResponse> call = api.getTopSearchList();
         call.enqueue(new Callback<BinanceResponse>() {
             @Override

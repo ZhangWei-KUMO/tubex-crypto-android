@@ -50,10 +50,18 @@ public class ChartManager {
                 takerPositionEntries.add(new Entry(timestamp, longShortRatio));
             }
 
-            String ratioText = String.format("%.4f", latestLongShortRatio);
+
             // 渲染做市商多空比数据
+            float finalLatestLongShortRatio = latestLongShortRatio;
             activity.runOnUiThread(() -> {
                 TextView takerPositionRatioTextView = activity.findViewById(chat.tubex.analysis.R.id.takerPositionRatioTextView);
+                // 如果小于1颜色为红色
+                if (finalLatestLongShortRatio < 1) {
+                    takerPositionRatioTextView.setTextColor(Color.RED);
+                } else {
+                    takerPositionRatioTextView.setTextColor(Color.WHITE);
+                }
+                String ratioText = String.format("%.3f", finalLatestLongShortRatio)+":1";
                 takerPositionRatioTextView.setText(ratioText);
             });
         }else{

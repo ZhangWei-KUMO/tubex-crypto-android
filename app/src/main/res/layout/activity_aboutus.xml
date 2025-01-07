@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/backButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:src="@drawable/arrow_back_24px"
             app:tint="@color/black"
@@ -40,7 +40,7 @@
         android:layout_marginStart="20dp"
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
-    android:text="版本号 1.20.42.1.1001555 build 1001555" />
+        android:text="@string/version" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

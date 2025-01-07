@@ -242,9 +242,14 @@ public class DataManager {
                                 String fundingRate = firstResponse.getFundingRate();
                                 // 转换成浮点值并转换成百分比
                                 double fundingRateValue = Double.parseDouble(fundingRate) * 100;
-                                String formattedFundingRate = String.format("%.2f%%", fundingRateValue);
                                 activity.runOnUiThread(() -> {
-                                    // 显示当前合约手续费
+                                    // 显示当前合约手续费，如果小于0颜色为红色
+                                    if (fundingRateValue < 0) {
+                                        fundingRateTextView.setTextColor(Color.RED);
+                                    } else {
+                                        fundingRateTextView.setTextColor(Color.WHITE);
+                                    }
+                                    String formattedFundingRate = String.format("%.2f%%", fundingRateValue);
                                     fundingRateTextView.setText(formattedFundingRate);
                                     chartManager.setFundingRateChartData(responseBody);
                                 });
